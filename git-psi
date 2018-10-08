@@ -1,0 +1,11 @@
+#!/bin/bash
+# like git clone, but set ssh identity file
+
+SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa.github -o IdentitiesOnly=yes"
+
+# if no opts, just set the option to correct the setting.
+if [ "$#" = 0 ]; then
+	exec git config --local core.sshCommand "$SSH_COMMAND"
+fi
+
+exec git clone -c core.sshCommand="$SSH_COMMAND" "$@"
